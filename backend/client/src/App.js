@@ -5,6 +5,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import logo from "./assets/images/logo.png";
 import Auth from "./Auth";
 import ChangePassword from "./containers/ChangePassword";
+import ChangeName from "./containers/ChangeName";
 import ForgotPassord from "./containers/ForgotPassord";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
@@ -53,6 +54,9 @@ function App() {
               <Menu.Item key="changePassword">
                 <Link to="changePassword">Change Password</Link>
               </Menu.Item>
+              <Menu.Item key="changeName">
+                <Link to="changename">Change Name</Link>
+              </Menu.Item>
               <Menu.Item key="logout">Logout</Menu.Item>
             </SubMenu>
           ) : (
@@ -92,6 +96,14 @@ function App() {
                 element={
                   <Auth authRoute={true} redirectTo="/login">
                     <ChangePassword />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/changename"
+                element={
+                  <Auth authRoute={true} redirectTo="/login">
+                    <ChangeName />
                   </Auth>
                 }
               />

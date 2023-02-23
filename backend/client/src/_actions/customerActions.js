@@ -1,5 +1,14 @@
 import axios from "axios";
-import { CUSTOMER_AUTH, CUSTOMER_CHANGE_PASSWORD, CUSTOMER_FORGOTPASSWORD, CUSTOMER_LOGIN, CUSTOMER_LOGOUT, CUSTOMER_REGISTER, CUSTOMER_RESETPASSWORD } from "./types";
+import {
+  CUSTOMER_AUTH,
+  CUSTOMER_CHANGE_PASSWORD,
+  CUSTOMER_CHANGE_NAME,
+  CUSTOMER_FORGOTPASSWORD,
+  CUSTOMER_LOGIN,
+  CUSTOMER_LOGOUT,
+  CUSTOMER_REGISTER,
+  CUSTOMER_RESETPASSWORD,
+} from "./types";
 
 export default function useCustomer() {
   const token = localStorage.getItem("customerToken");
@@ -21,7 +30,6 @@ export default function useCustomer() {
     };
   };
 
-
   const customerLogin = (data) => {
     const request = axios
       .post("/customers/login", data)
@@ -38,7 +46,7 @@ export default function useCustomer() {
     const request = axios
       .get("/customers/authUser", config)
       .then((res) => {
-        return res.data
+        return res.data;
       })
       .catch((err) => err.response.data);
     return {
@@ -51,7 +59,7 @@ export default function useCustomer() {
     const request = axios
       .get("/customers/logout", config)
       .then((res) => {
-        return res.data
+        return res.data;
       })
       .catch((err) => err.response.data);
     return {
@@ -64,11 +72,23 @@ export default function useCustomer() {
     const request = axios
       .put("/customers/changePassword", data, config)
       .then((res) => {
-        return res.data
+        return res.data;
       })
       .catch((err) => err.response.data);
     return {
       type: CUSTOMER_CHANGE_PASSWORD,
+      payload: request,
+    };
+  };
+  const customerChangeName = (data) => {
+    const request = axios
+      .put("/customers/changeName", data, config)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => err.response.data);
+    return {
+      type: CUSTOMER_CHANGE_NAME,
       payload: request,
     };
   };
@@ -97,16 +117,14 @@ export default function useCustomer() {
     };
   };
 
-
-
   return {
     customerRegister,
     customerLogin,
     customerAuth,
     customerLogout,
     customerChangePassword,
+    customerChangeName,
     customerForgotPassword,
-    customerResetPassword
-    
+    customerResetPassword,
   };
 }
